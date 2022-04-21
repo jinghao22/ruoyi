@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改历史记录')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-take-edit" th:object="${nbTake}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态码：</label>
+                <div class="col-sm-8">
+                    <input name="code" th:field="*{code}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">表号：</label>
+                <div class="col-sm-8">
+                    <input name="meterNo" th:field="*{meterNo}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">读数：</label>
+                <div class="col-sm-8">
+                    <input name="readNumber" th:field="*{readNumber}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">电压：</label>
+                <div class="col-sm-8">
+                    <input name="voltage" th:field="*{voltage}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">阀门状态：</label>
+                <div class="col-sm-8">
+                    <input name="valveState" th:field="*{valveState}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">阀门故障：</label>
+                <div class="col-sm-8">
+                    <input name="valveFailure" th:field="*{valveFailure}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">攻击状态：</label>
+                <div class="col-sm-8">
+                    <input name="attackState" th:field="*{attackState}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">电池状态：</label>
+                <div class="col-sm-8">
+                    <input name="batteryStu" th:field="*{batteryStu}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">霍尔故障：</label>
+                <div class="col-sm-8">
+                    <input name="hallofFailure" th:field="*{hallofFailure}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">掉电：</label>
+                <div class="col-sm-8">
+                    <input name="dowerDown" th:field="*{dowerDown}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">网络信号：</label>
+                <div class="col-sm-8">
+                    <input name="csq" th:field="*{csq}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">rsrp：</label>
+                <div class="col-sm-8">
+                    <input name="rsrp" th:field="*{rsrp}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">snr：</label>
+                <div class="col-sm-8">
+                    <input name="snr" th:field="*{snr}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">CIMI编号：</label>
+                <div class="col-sm-8">
+                    <input name="cimi" th:field="*{cimi}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">ICCID：</label>
+                <div class="col-sm-8">
+                    <input name="iccid" th:field="*{iccid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">抄表时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="workerTime" th:value="${#dates.format(nbTake.workerTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">是否记账：</label>
+                <div class="col-sm-8">
+                    <input name="isCharge" th:field="*{isCharge}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属部门：</label>
+                <div class="col-sm-8">
+                    <input name="deptId" th:field="*{deptId}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">年：</label>
+                <div class="col-sm-8">
+                    <input name="workTimeYear" th:field="*{workTimeYear}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">月：</label>
+                <div class="col-sm-8">
+                    <input name="workTimeMonth" th:field="*{workTimeMonth}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">日：</label>
+                <div class="col-sm-8">
+                    <input name="workTimeDay" th:field="*{workTimeDay}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "jingyuan/take";
+        $("#form-take-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-take-edit').serialize());
+            }
+        }
+
+        $("input[name='workerTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

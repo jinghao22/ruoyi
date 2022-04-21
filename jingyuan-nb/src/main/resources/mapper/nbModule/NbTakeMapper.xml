@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyuan.nb.mapper.NbTakeMapper">
+    
+    <resultMap type="NbTake" id="NbTakeResult">
+        <result property="id"    column="id"    />
+        <result property="commandType"    column="command_type"    />
+        <result property="code"    column="code"    />
+        <result property="meterNo"    column="meter_no"    />
+        <result property="readNumber"    column="read_number"    />
+        <result property="voltage"    column="voltage"    />
+        <result property="valveState"    column="valve_state"    />
+        <result property="valveFailure"    column="valve_failure"    />
+        <result property="attackState"    column="attack_state"    />
+        <result property="batteryStu"    column="battery_stu"    />
+        <result property="hallofFailure"    column="hallof_failure"    />
+        <result property="dowerDown"    column="dower_down"    />
+        <result property="csq"    column="csq"    />
+        <result property="rsrp"    column="rsrp"    />
+        <result property="snr"    column="snr"    />
+        <result property="cimi"    column="cimi"    />
+        <result property="iccid"    column="iccid"    />
+        <result property="workerTime"    column="worker_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="isCharge"    column="is_charge"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="workTimeYear"    column="work_time_year"    />
+        <result property="workTimeMonth"    column="work_time_month"    />
+        <result property="workTimeDay"    column="work_time_day"    />
+    </resultMap>
+
+    <sql id="selectNbTakeVo">
+        select id, command_type, code, meter_no, read_number, voltage, valve_state, valve_failure, attack_state, battery_stu, hallof_failure, dower_down, csq, rsrp, snr, cimi, iccid, worker_time, create_time, is_charge, dept_id, work_time_year, work_time_month, work_time_day from nb_take
+    </sql>
+
+    <select id="selectNbTakeList" parameterType="NbTake" resultMap="NbTakeResult">
+        <include refid="selectNbTakeVo"/>
+        <where>  
+            <if test="commandType != null  and commandType != ''"> and command_type = #{commandType}</if>
+            <if test="code != null "> and code = #{code}</if>
+            <if test="meterNo != null  and meterNo != ''"> and meter_no = #{meterNo}</if>
+            <if test="readNumber != null  and readNumber != ''"> and read_number = #{readNumber}</if>
+            <if test="voltage != null  and voltage != ''"> and voltage = #{voltage}</if>
+            <if test="valveState != null  and valveState != ''"> and valve_state = #{valveState}</if>
+            <if test="valveFailure != null  and valveFailure != ''"> and valve_failure = #{valveFailure}</if>
+            <if test="attackState != null  and attackState != ''"> and attack_state = #{attackState}</if>
+            <if test="batteryStu != null  and batteryStu != ''"> and battery_stu = #{batteryStu}</if>
+            <if test="hallofFailure != null  and hallofFailure != ''"> and hallof_failure = #{hallofFailure}</if>
+            <if test="dowerDown != null  and dowerDown != ''"> and dower_down = #{dowerDown}</if>
+            <if test="csq != null  and csq != ''"> and csq = #{csq}</if>
+            <if test="rsrp != null  and rsrp != ''"> and rsrp = #{rsrp}</if>
+            <if test="snr != null  and snr != ''"> and snr = #{snr}</if>
+            <if test="cimi != null  and cimi != ''"> and cimi = #{cimi}</if>
+            <if test="iccid != null  and iccid != ''"> and iccid = #{iccid}</if>
+            <if test="workerTime != null "> and worker_time = #{workerTime}</if>
+            <if test="isCharge != null  and isCharge != ''"> and is_charge = #{isCharge}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="workTimeYear != null "> and work_time_year = #{workTimeYear}</if>
+            <if test="workTimeMonth != null "> and work_time_month = #{workTimeMonth}</if>
+            <if test="workTimeDay != null "> and work_time_day = #{workTimeDay}</if>
+        </where>
+    </select>
+    
+    <select id="selectNbTakeById" parameterType="Long" resultMap="NbTakeResult">
+        <include refid="selectNbTakeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNbTake" parameterType="NbTake" useGeneratedKeys="true" keyProperty="id">
+        insert into nb_take
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commandType != null">command_type,</if>
+            <if test="code != null">code,</if>
+            <if test="meterNo != null and meterNo != ''">meter_no,</if>
+            <if test="readNumber != null and readNumber != ''">read_number,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="valveState != null">valve_state,</if>
+            <if test="valveFailure != null">valve_failure,</if>
+            <if test="attackState != null">attack_state,</if>
+            <if test="batteryStu != null">battery_stu,</if>
+            <if test="hallofFailure != null">hallof_failure,</if>
+            <if test="dowerDown != null">dower_down,</if>
+            <if test="csq != null">csq,</if>
+            <if test="rsrp != null">rsrp,</if>
+            <if test="snr != null">snr,</if>
+            <if test="cimi != null">cimi,</if>
+            <if test="iccid != null">iccid,</if>
+            <if test="workerTime != null">worker_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="isCharge != null">is_charge,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="workTimeYear != null">work_time_year,</if>
+            <if test="workTimeMonth != null">work_time_month,</if>
+            <if test="workTimeDay != null">work_time_day,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commandType != null">#{commandType},</if>
+            <if test="code != null">#{code},</if>
+            <if test="meterNo != null and meterNo != ''">#{meterNo},</if>
+            <if test="readNumber != null and readNumber != ''">#{readNumber},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="valveState != null">#{valveState},</if>
+            <if test="valveFailure != null">#{valveFailure},</if>
+            <if test="attackState != null">#{attackState},</if>
+            <if test="batteryStu != null">#{batteryStu},</if>
+            <if test="hallofFailure != null">#{hallofFailure},</if>
+            <if test="dowerDown != null">#{dowerDown},</if>
+            <if test="csq != null">#{csq},</if>
+            <if test="rsrp != null">#{rsrp},</if>
+            <if test="snr != null">#{snr},</if>
+            <if test="cimi != null">#{cimi},</if>
+            <if test="iccid != null">#{iccid},</if>
+            <if test="workerTime != null">#{workerTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="isCharge != null">#{isCharge},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="workTimeYear != null">#{workTimeYear},</if>
+            <if test="workTimeMonth != null">#{workTimeMonth},</if>
+            <if test="workTimeDay != null">#{workTimeDay},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNbTake" parameterType="NbTake">
+        update nb_take
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="commandType != null">command_type = #{commandType},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="meterNo != null and meterNo != ''">meter_no = #{meterNo},</if>
+            <if test="readNumber != null and readNumber != ''">read_number = #{readNumber},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="valveState != null">valve_state = #{valveState},</if>
+            <if test="valveFailure != null">valve_failure = #{valveFailure},</if>
+            <if test="attackState != null">attack_state = #{attackState},</if>
+            <if test="batteryStu != null">battery_stu = #{batteryStu},</if>
+            <if test="hallofFailure != null">hallof_failure = #{hallofFailure},</if>
+            <if test="dowerDown != null">dower_down = #{dowerDown},</if>
+            <if test="csq != null">csq = #{csq},</if>
+            <if test="rsrp != null">rsrp = #{rsrp},</if>
+            <if test="snr != null">snr = #{snr},</if>
+            <if test="cimi != null">cimi = #{cimi},</if>
+            <if test="iccid != null">iccid = #{iccid},</if>
+            <if test="workerTime != null">worker_time = #{workerTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="isCharge != null">is_charge = #{isCharge},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="workTimeYear != null">work_time_year = #{workTimeYear},</if>
+            <if test="workTimeMonth != null">work_time_month = #{workTimeMonth},</if>
+            <if test="workTimeDay != null">work_time_day = #{workTimeDay},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNbTakeById" parameterType="Long">
+        delete from nb_take where id = #{id}
+    </delete>
+
+    <delete id="deleteNbTakeByIds" parameterType="String">
+        delete from nb_take where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

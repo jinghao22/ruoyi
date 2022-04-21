@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('历史记录列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>状态码：</label>
+                                <input type="text" name="code"/>
+                            </li>
+                            <li>
+                                <label>表号：</label>
+                                <input type="text" name="meterNo"/>
+                            </li>
+                            <li>
+                                <label>读数：</label>
+                                <input type="text" name="readNumber"/>
+                            </li>
+                            <li>
+                                <label>电压：</label>
+                                <input type="text" name="voltage"/>
+                            </li>
+                            <li>
+                                <label>阀门状态：</label>
+                                <input type="text" name="valveState"/>
+                            </li>
+                            <li>
+                                <label>阀门故障：</label>
+                                <input type="text" name="valveFailure"/>
+                            </li>
+                            <li>
+                                <label>攻击状态：</label>
+                                <input type="text" name="attackState"/>
+                            </li>
+                            <li>
+                                <label>电池状态：</label>
+                                <input type="text" name="batteryStu"/>
+                            </li>
+                            <li>
+                                <label>霍尔故障：</label>
+                                <input type="text" name="hallofFailure"/>
+                            </li>
+                            <li>
+                                <label>掉电：</label>
+                                <input type="text" name="dowerDown"/>
+                            </li>
+                            <li>
+                                <label>网络信号：</label>
+                                <input type="text" name="csq"/>
+                            </li>
+                            <li>
+                                <label>rsrp：</label>
+                                <input type="text" name="rsrp"/>
+                            </li>
+                            <li>
+                                <label>snr：</label>
+                                <input type="text" name="snr"/>
+                            </li>
+                            <li>
+                                <label>CIMI编号：</label>
+                                <input type="text" name="cimi"/>
+                            </li>
+                            <li>
+                                <label>ICCID：</label>
+                                <input type="text" name="iccid"/>
+                            </li>
+                            <li>
+                                <label>抄表时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择抄表时间" name="workerTime"/>
+                            </li>
+                            <li>
+                                <label>是否记账：</label>
+                                <input type="text" name="isCharge"/>
+                            </li>
+                            <li>
+                                <label>所属部门：</label>
+                                <input type="text" name="deptId"/>
+                            </li>
+                            <li>
+                                <label>年：</label>
+                                <input type="text" name="workTimeYear"/>
+                            </li>
+                            <li>
+                                <label>月：</label>
+                                <input type="text" name="workTimeMonth"/>
+                            </li>
+                            <li>
+                                <label>日：</label>
+                                <input type="text" name="workTimeDay"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="jingyuan:take:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="jingyuan:take:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="jingyuan:take:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="jingyuan:take:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('jingyuan:take:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('jingyuan:take:remove')}]];
+        var prefix = ctx + "jingyuan/take";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "历史记录",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'commandType',
+                    title: '命令类型'
+                },
+                {
+                    field: 'code',
+                    title: '状态码'
+                },
+                {
+                    field: 'meterNo',
+                    title: '表号'
+                },
+                {
+                    field: 'readNumber',
+                    title: '读数'
+                },
+                {
+                    field: 'voltage',
+                    title: '电压'
+                },
+                {
+                    field: 'valveState',
+                    title: '阀门状态'
+                },
+                {
+                    field: 'valveFailure',
+                    title: '阀门故障'
+                },
+                {
+                    field: 'attackState',
+                    title: '攻击状态'
+                },
+                {
+                    field: 'batteryStu',
+                    title: '电池状态'
+                },
+                {
+                    field: 'hallofFailure',
+                    title: '霍尔故障'
+                },
+                {
+                    field: 'dowerDown',
+                    title: '掉电'
+                },
+                {
+                    field: 'csq',
+                    title: '网络信号'
+                },
+                {
+                    field: 'rsrp',
+                    title: 'rsrp'
+                },
+                {
+                    field: 'snr',
+                    title: 'snr'
+                },
+                {
+                    field: 'cimi',
+                    title: 'CIMI编号'
+                },
+                {
+                    field: 'iccid',
+                    title: 'ICCID'
+                },
+                {
+                    field: 'workerTime',
+                    title: '抄表时间'
+                },
+                {
+                    field: 'isCharge',
+                    title: '是否记账'
+                },
+                {
+                    field: 'deptId',
+                    title: '所属部门'
+                },
+                {
+                    field: 'workTimeYear',
+                    title: '年'
+                },
+                {
+                    field: 'workTimeMonth',
+                    title: '月'
+                },
+                {
+                    field: 'workTimeDay',
+                    title: '日'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
