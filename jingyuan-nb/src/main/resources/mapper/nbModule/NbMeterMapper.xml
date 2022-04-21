@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyuan.nb.mapper.NbMeterMapper">
+    
+    <resultMap type="NbMeter" id="NbMeterResult">
+        <result property="meterAddr"    column="meter_addr"    />
+        <result property="guestNo"    column="guest_no"    />
+        <result property="meterType"    column="meter_type"    />
+        <result property="imei"    column="imei"    />
+        <result property="reading"    column="reading"    />
+        <result property="takeTime"    column="take_time"    />
+        <result property="valveCode"    column="valve_code"    />
+        <result property="controllCode"    column="controll_code"    />
+        <result property="csq"    column="csq"    />
+        <result property="rsrp"    column="rsrp"    />
+        <result property="snr"    column="snr"    />
+        <result property="cimi"    column="cimi"    />
+        <result property="iccid"    column="iccid"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectNbMeterVo">
+        select meter_addr, guest_no, meter_type, imei, reading, take_time, valve_code, controll_code, csq, rsrp, snr, cimi, iccid, dept_id, create_by, create_time, update_by, update_time, remark, del_flag from nb_meter
+    </sql>
+
+    <select id="selectNbMeterList" parameterType="NbMeter" resultMap="NbMeterResult">
+        <include refid="selectNbMeterVo"/>
+        <where>  
+            <if test="guestNo != null  and guestNo != ''"> and guest_no = #{guestNo}</if>
+            <if test="meterType != null "> and meter_type = #{meterType}</if>
+            <if test="imei != null  and imei != ''"> and imei = #{imei}</if>
+            <if test="reading != null "> and reading = #{reading}</if>
+            <if test="takeTime != null "> and take_time = #{takeTime}</if>
+            <if test="valveCode != null  and valveCode != ''"> and valve_code = #{valveCode}</if>
+            <if test="controllCode != null  and controllCode != ''"> and controll_code = #{controllCode}</if>
+            <if test="csq != null "> and csq = #{csq}</if>
+            <if test="rsrp != null  and rsrp != ''"> and rsrp = #{rsrp}</if>
+            <if test="snr != null  and snr != ''"> and snr = #{snr}</if>
+            <if test="cimi != null  and cimi != ''"> and cimi = #{cimi}</if>
+            <if test="iccid != null  and iccid != ''"> and iccid = #{iccid}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectNbMeterByMeterAddr" parameterType="String" resultMap="NbMeterResult">
+        <include refid="selectNbMeterVo"/>
+        where meter_addr = #{meterAddr}
+    </select>
+        
+    <insert id="insertNbMeter" parameterType="NbMeter">
+        insert into nb_meter
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="meterAddr != null">meter_addr,</if>
+            <if test="guestNo != null and guestNo != ''">guest_no,</if>
+            <if test="meterType != null">meter_type,</if>
+            <if test="imei != null">imei,</if>
+            <if test="reading != null">reading,</if>
+            <if test="takeTime != null">take_time,</if>
+            <if test="valveCode != null and valveCode != ''">valve_code,</if>
+            <if test="controllCode != null">controll_code,</if>
+            <if test="csq != null">csq,</if>
+            <if test="rsrp != null">rsrp,</if>
+            <if test="snr != null">snr,</if>
+            <if test="cimi != null">cimi,</if>
+            <if test="iccid != null">iccid,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="meterAddr != null">#{meterAddr},</if>
+            <if test="guestNo != null and guestNo != ''">#{guestNo},</if>
+            <if test="meterType != null">#{meterType},</if>
+            <if test="imei != null">#{imei},</if>
+            <if test="reading != null">#{reading},</if>
+            <if test="takeTime != null">#{takeTime},</if>
+            <if test="valveCode != null and valveCode != ''">#{valveCode},</if>
+            <if test="controllCode != null">#{controllCode},</if>
+            <if test="csq != null">#{csq},</if>
+            <if test="rsrp != null">#{rsrp},</if>
+            <if test="snr != null">#{snr},</if>
+            <if test="cimi != null">#{cimi},</if>
+            <if test="iccid != null">#{iccid},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNbMeter" parameterType="NbMeter">
+        update nb_meter
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="guestNo != null and guestNo != ''">guest_no = #{guestNo},</if>
+            <if test="meterType != null">meter_type = #{meterType},</if>
+            <if test="imei != null">imei = #{imei},</if>
+            <if test="reading != null">reading = #{reading},</if>
+            <if test="takeTime != null">take_time = #{takeTime},</if>
+            <if test="valveCode != null and valveCode != ''">valve_code = #{valveCode},</if>
+            <if test="controllCode != null">controll_code = #{controllCode},</if>
+            <if test="csq != null">csq = #{csq},</if>
+            <if test="rsrp != null">rsrp = #{rsrp},</if>
+            <if test="snr != null">snr = #{snr},</if>
+            <if test="cimi != null">cimi = #{cimi},</if>
+            <if test="iccid != null">iccid = #{iccid},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+        </trim>
+        where meter_addr = #{meterAddr}
+    </update>
+
+    <delete id="deleteNbMeterByMeterAddr" parameterType="String">
+        delete from nb_meter where meter_addr = #{meterAddr}
+    </delete>
+
+    <delete id="deleteNbMeterByMeterAddrs" parameterType="String">
+        delete from nb_meter where meter_addr in 
+        <foreach item="meterAddr" collection="array" open="(" separator="," close=")">
+            #{meterAddr}
+        </foreach>
+    </delete>
+
+</mapper>
